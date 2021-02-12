@@ -17,6 +17,10 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 version: 1.0.0+1
 
+flutter_native_splash:
+   color: "#1851b4"
+   image: assets/launch_screen.png
+
 environment:
   sdk: ">=2.7.0 <3.0.0"
 
@@ -34,10 +38,11 @@ dependencies:
   get: ^3.17.1
   flutter_speed_dial: ^1.2.5
   share: ^0.6.5+4
-  onesignal_flutter: ^2.0.0
-  firebase_core: ^0.7.0
   mailto: ^1.1.0
   app_tracking_transparency: ^1.1.0+1
+  introduction_screen: ^1.0.9
+  shared_preferences: ^0.5.12
+  flutter_native_splash: ^0.3.0
 
 
 
@@ -57,8 +62,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+    - assets/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

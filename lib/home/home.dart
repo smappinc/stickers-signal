@@ -1,12 +1,11 @@
 import 'dart:convert';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:web_app/animated_screen/animated_screen.dart';
 import 'package:web_app/util/constants.dart';
 import 'package:web_app/util/my_fab.dart';
-import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -24,20 +23,6 @@ class _HomeScreenState extends State<HomeScreen> {
     // Set the flag as true
     super.initState();
     getAllStickers();
-    initOneSignal();
-  }
-
-  Future<void> initOneSignal() async {
-    OneSignal.shared.init("e35eafa7-2b43-491b-9b50-82e87676a0cc", iOSSettings: {
-      OSiOSSettings.autoPrompt: false,
-      OSiOSSettings.inAppLaunchUrl: false
-    });
-    OneSignal.shared
-        .setInFocusDisplayType(OSNotificationDisplayType.notification);
-
-// The promptForPushNotificationsWithUserResponse function will show the iOS push notification prompt. We recommend removing the following code and instead using an In-App Message to prompt for notification permission
-    await OneSignal.shared
-        .promptUserForPushNotificationPermission(fallbackToSettings: true);
   }
 
   Future<void> getAllStickers() async {
@@ -68,6 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         actions: [],
       ),
+      drawer: homeDrawer(),
       body: Container(
           margin: EdgeInsets.symmetric(vertical: 5.0),
           child: (isLoading)
@@ -81,8 +67,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     return stickerCell(stickers[index]);
                   })),
       floatingActionButton: Padding(
-        padding: const EdgeInsets.only(bottom: 50),
+        padding: const EdgeInsets.only(bottom: 0),
         child: MyFab(),
+      ),
+      bottomNavigationBar: Container(
+        height: 90,
+        width: MediaQuery.of(context).size.width,
+        color: Colors.blue[900],
       ),
     );
   }
@@ -161,7 +152,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Container(
       width: MediaQuery.of(context).size.width * 0.7,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Colors.grey[850],
         borderRadius: BorderRadius.only(
           bottomRight: Radius.circular(30),
           topRight: Radius.circular(30),
@@ -171,19 +162,15 @@ class _HomeScreenState extends State<HomeScreen> {
         padding: EdgeInsets.zero,
         children: <Widget>[
           UserAccountsDrawerHeader(
-            accountName: Text("Ezrevize"),
-            accountEmail: Text("support.ezrevize@gmail.com"),
-            currentAccountPicture: CircleAvatar(
-              backgroundColor: Theme.of(context).platform == TargetPlatform.iOS
-                  ? Colors.white
-                  : Colors.white,
-              child: Text(
-                'EZ',
-                style: TextStyle(fontSize: 40.0, color: Colors.blue),
-              ),
+            accountName: Text("Signal Meme Stickers"),
+            accountEmail: Text("pssst....drink some water"),
+            currentAccountPicture: Container(
+              decoration: BoxDecoration(shape: BoxShape.circle),
+              child: Icon(Icons.sentiment_very_satisfied,
+                  size: 70, color: Colors.white),
             ),
             decoration: BoxDecoration(
-              color: Colors.blue,
+              color: Colors.blue[900],
               borderRadius: BorderRadius.only(
                 topRight: Radius.circular(30),
               ),
@@ -191,26 +178,35 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           ListTile(
             leading: Icon(
-              Icons.account_circle_rounded,
-              color: Colors.blue,
+              Icons.home,
+              color: Colors.white,
               size: 30.0,
             ),
             title: Text(
-              'Login',
-              style: TextStyle(color: Colors.blue),
+              'Home',
+              style: TextStyle(color: Colors.white),
             ),
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).pop();
+            },
           ),
           ListTile(
             leading: Icon(
-              Icons.account_circle_rounded,
-              color: Colors.blue,
+              Icons.sentiment_satisfied_alt_sharp,
+              color: Colors.white,
               size: 30.0,
             ),
             title: Text(
-              'My Profile',
-              style: TextStyle(color: Colors.blue),
+              'Animated Stickers',
+              style: TextStyle(color: Colors.white),
             ),
+            onTap: () {
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => AnimatedScreen()),
+                (Route<dynamic> route) => false,
+              );
+            },
           ),
         ],
       ),

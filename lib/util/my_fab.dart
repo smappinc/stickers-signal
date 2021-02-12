@@ -45,19 +45,21 @@ class MyFabState extends State<MyFab> with TickerProviderStateMixin {
       curve: Curves.bounceIn,
       children: [
         SpeedDialChild(
-            child: Icon(Icons.share, color: Colors.white),
-            backgroundColor: Colors.blue[900],
-            label: 'Share App',
-            onTap: () {
-              _onShare();
-            }),
+          child: Icon(Icons.share, color: Colors.white),
+          backgroundColor: Colors.blue[900],
+          label: 'Share App',
+          onTap: () {
+            _onShare();
+          }
+        ),
         SpeedDialChild(
-            child: Icon(Icons.star_rate, color: Colors.white),
-            backgroundColor: Colors.blue[900],
-            label: 'Request a Sticker Pack',
-            onTap: () {
-              launch('https://forms.gle/1Mx6Q5aBM2X8gnqq7');
-            }),
+          child: Icon(Icons.star_rate, color: Colors.white),
+          backgroundColor: Colors.blue[900],
+          label: 'Request a Sticker Pack',
+          onTap: () {
+            launch('https://forms.gle/1Mx6Q5aBM2X8gnqq7');
+          }
+        ),
       ],
     );
   }
